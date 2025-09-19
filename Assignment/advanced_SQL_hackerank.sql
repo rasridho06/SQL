@@ -1,3 +1,5 @@
+# Tugas 1 The Report
+
 with student_grade as (
 select
     s.ID as student_id,
@@ -25,4 +27,16 @@ order by
     case when student_grade >= 8 then student_name end asc,
     case when student_grade <8 then student_marks end asc
 ;
+
+# Tugas 2 . Weather Observation Station 18
+SELECT
+round((max(lat_n)- min(lat_n)) + (max(long_w)- min(long_w)),4)
+from
+station
+;SELECT
+round((max(lat_n)- min(lat_n)) + (max(long_w)- min(long_w)),4)
+from
+station
+;
+
 
