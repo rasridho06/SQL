@@ -39,4 +39,22 @@ from
 station
 ;
 
+# Soal 3 : Top Competitors
+SELECT
+h.hacker_id,
+h.name
+from
+Submissions as s
+join Challenges as c on s.challenge_id = c.challenge_id
+join Difficulty as d on c.difficulty_level = d.difficulty_level
+join Hackers as h on s.hacker_id = h.hacker_id
+WHERE
+s.score = d.score
+group BY
+h.hacker_id, h.name
+having count(s.challenge_id) > 1
+ORDER BY
+    count(s.challenge_id) desc,
+    h.hacker_id asc;
 
+    
