@@ -57,4 +57,27 @@ ORDER BY
     count(s.challenge_id) desc,
     h.hacker_id asc;
 
-    
+-- 4.	Soal 4 : Ollivander's Inventory
+SELECT
+w.id as id,
+wp.age as age,
+w.coins_needed as coins,
+w.power as power_wand
+from
+Wands as w
+inner join Wands_Property as wp on w.code = wp.code
+inner join (
+    SELECT
+    code,
+    power,
+    min(coins_needed) as min_coins
+    from
+    Wands
+    group by 1,2
+) as min_price on w.code = min_price.code
+    and w.power = min_price.power
+    and w.coins_needed = min_price.min_coins
+where wp.is_evil = 0
+order by 4 desc, 2 desc;
+
+
