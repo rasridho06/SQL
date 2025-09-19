@@ -1,0 +1,28 @@
+with student_grade as (
+select
+    s.ID as student_id,
+    s.Name as student_name,
+    s.Marks as student_marks,
+    g.Grade as student_grade,
+    g.Min_Mark as min_student_grade,
+    g.Max_Mark as max_student_grade
+from students s
+left join grades g on s.marks between g.Min_Mark and g.Max_Mark
+)
+
+# show the data with the rules of name and order
+SELECT
+    case 
+        when student_grade < 8 then null
+        else student_name
+        end as name,
+    student_grade,
+    student_marks
+from
+student_grade
+order by
+    student_grade desc,
+    case when student_grade >= 8 then student_name end asc,
+    case when student_grade <8 then student_marks end asc
+;
+
