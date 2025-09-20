@@ -81,3 +81,32 @@ where wp.is_evil = 0
 order by 4 desc, 2 desc;
 
 
+-- 5.	Soal 3 : Contest Leaderboard
+SELECT
+id,
+name,
+total_max_scores
+from
+    (
+    SELECT
+    id,
+    name,
+    sum(max_score) as total_max_scores
+    from
+    (
+        SELECT
+        h.hacker_id as id,
+        h.name as name,
+        s.challenge_id as challenges,
+        max(s.score) as max_score
+        from Hackers h 
+        join Submissions s on h.hacker_id = s.hacker_id
+        group by 1,2,3
+    ) as max_score_perChallenge
+    group by 1,2
+    )    as total_score
+where
+total_max_scores > 0
+ORDER by
+total_max_scores desc,
+id asc ;
